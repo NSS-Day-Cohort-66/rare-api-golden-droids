@@ -1,52 +1,52 @@
 [
   {
-    "model": "rareapi.game",
+    "model": "rareapi.comment",
     "pk": 1,
     "fields": {
       "post": 3,
       "author": 1,
-      "content": 8,
-      "created_on": 1
+      "content": "Stupid",
+      "created_on": "2023-11-25 12:00:00"
     }
   },
   {
-    "model": "rareapi.game",
+    "model": "rareapi.comment",
     "pk": 2,
     "fields": {
       "post": 1,
       "author": 2,
-      "content": 8,
-      "created_on": 1
+      "content": "Amazing",
+      "created_on": "2023-11-26 14:30:00"
     }
   },
   {
-    "model": "rareapi.game",
+    "model": "rareapi.comment",
     "pk": 3,
     "fields": {
       "post": 2,
       "author": 3,
-      "content": 8,
-      "created_on": 1
+      "content": "Really?!?!?",
+      "created_on": "2023-11-27 18:25:00"
     }
   },
   {
-    "model": "rareapi.game",
+    "model": "rareapi.comment",
     "pk": 4,
     "fields": {
       "post": 4,
-      "author": 5,
-      "content": 4,
-      "created_on": 1
+      "author": 1,
+      "content": "Love!",
+      "created_on": "2023-11-28 6:10:00"
     }
   },
   {
-    "model": "rareapi.game",
+    "model": "rareapi.comment",
     "pk": 5,
     "fields": {
-      "post": "Monopoly",
-      "author": "Parker Bros",
-      "content": 8,
-      "created_on": 1
+      "post": 5,
+      "author": 2,
+      "content": "Are you serious?",
+      "created_on": "2023-11-29 15:40:00"
     }
   }
 ]
