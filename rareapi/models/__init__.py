@@ -1,2 +1,6 @@
+
+from .comment import Comment
+from .post_tag import PostTag
 from .category import Category
-from .tag import Tag
+from .posts import Post
+
