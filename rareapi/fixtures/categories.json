@@ -1,0 +1,21 @@
+[
+    {
+        "model": "rareapi.category",
+        "pk": 1,
+        "fields": {
+            "label": "Lifestyle"
+        }
+    }, {
+        "model": "rareapi.category",
+        "pk": 2,
+        "fields": {
+            "label": "Cooking"
+        }
+    }, {
+        "model": "rareapi.category",
+        "pk": 3,
+        "fields": {
+            "label": "Traveling"
+        }
+    }
+]
