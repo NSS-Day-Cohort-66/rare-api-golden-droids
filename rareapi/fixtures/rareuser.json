@@ -1,0 +1,35 @@
+[
+  {
+    "model": "rareapi.rareuser",
+    "pk": 1,
+    "fields": {
+      "bio": "Lifestyle is my passion !",
+      "profile_image_url": "https://ih1.redbubble.net/image.1024971908.0983/flat,750x,075,f-pad,750x1000,f8f8f8.u2.jpg",
+      "created_on": "November 17, 2021",
+      "active": "True",
+      "user": "1"
+    }
+  },
+  {
+    "model": "rareapi.rareuser",
+    "pk": 2,
+    "fields": {
+      "bio": "Cooking is my passion !",
+      "profile_image_url": "https://upload.wikimedia.org/wikipedia/en/6/6a/Mike_Wazowski.png",
+      "created_on": "October 17, 2021",
+      "active": "True",
+      "user": "2"
+    }
+  },
+  {
+    "model": "rareapi.rareuser",
+    "pk": 3,
+    "fields": {
+      "bio": "Animals are my passion !",
+      "profile_image_url": "https://kh.wiki.gallery/images/thumb/9/90/Mike_Wazowski_KHIII.png/800px-Mike_Wazowski_KHIII.png",
+      "created_on": "September 17, 2021",
+      "active": "True",
+      "user": "3"
+    }
+  }
+]
