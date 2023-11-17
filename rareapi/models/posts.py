@@ -8,4 +8,4 @@ class Post(models.Model):
     publication_date = models.DateField(auto_now_add=True)
     image_url = models.URLField()
     content = models.TextField()
-    approved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=True)
