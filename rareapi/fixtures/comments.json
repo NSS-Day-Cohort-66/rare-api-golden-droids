@@ -1,0 +1,52 @@
+[
+  {
+    "model": "rareapi.game",
+    "pk": 1,
+    "fields": {
+      "post": 3,
+      "author": 1,
+      "content": 8,
+      "created_on": 1
+    }
+  },
+  {
+    "model": "rareapi.game",
+    "pk": 2,
+    "fields": {
+      "post": 1,
+      "author": 2,
+      "content": 8,
+      "created_on": 1
+    }
+  },
+  {
+    "model": "rareapi.game",
+    "pk": 3,
+    "fields": {
+      "post": 2,
+      "author": 3,
+      "content": 8,
+      "created_on": 1
+    }
+  },
+  {
+    "model": "rareapi.game",
+    "pk": 4,
+    "fields": {
+      "post": 4,
+      "author": 5,
+      "content": 4,
+      "created_on": 1
+    }
+  },
+  {
+    "model": "rareapi.game",
+    "pk": 5,
+    "fields": {
+      "post": "Monopoly",
+      "author": "Parker Bros",
+      "content": 8,
+      "created_on": 1
+    }
+  }
+]
