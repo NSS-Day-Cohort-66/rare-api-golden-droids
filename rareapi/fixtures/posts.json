@@ -35,7 +35,7 @@
       "publication_date": "2023-11-22",
       "image_url": "https://example.com/image3.jpg",
       "content": "This is the content of Example Post 3.",
-      "approved": false
+      "approved": true
     }
   },
   {
