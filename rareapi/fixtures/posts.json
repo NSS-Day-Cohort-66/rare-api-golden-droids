@@ -3,65 +3,80 @@
     "model": "rareapi.post",
     "pk": 1,
     "fields": {
-      "user": 1,
+      "rare_user": 1,
       "category": 1,
       "title": "Example Post 1",
       "publication_date": "2023-11-20",
       "image_url": "https://example.com/image1.jpg",
       "content": "This is the content of Example Post 1.",
-      "approved": true
+      "approved": true,
+      "tags": [
+        2,3
+      ]
     }
   },
   {
     "model": "rareapi.post",
     "pk": 2,
     "fields": {
-      "user": 2,
+      "rare_user": 2,
       "category": 2,
       "title": "Example Post 2",
       "publication_date": "2023-11-21",
       "image_url": "https://example.com/image2.jpg",
       "content": "This is the content of Example Post 2.",
-      "approved": true
+      "approved": true,
+      "tags": [
+        5,1
+      ]
     }
   },
   {
     "model": "rareapi.post",
     "pk": 3,
     "fields": {
-      "user": 1,
+      "rare_user": 1,
       "category": 1,
       "title": "Example Post 3",
       "publication_date": "2023-11-22",
       "image_url": "https://example.com/image3.jpg",
       "content": "This is the content of Example Post 3.",
-      "approved": true
+      "approved": true,
+      "tags": [
+        2,6
+      ]
     }
   },
   {
     "model": "rareapi.post",
     "pk": 4,
     "fields": {
-      "user": 3,
+      "rare_user": 3,
       "category": 3,
       "title": "Example Post 4",
       "publication_date": "2023-11-23",
       "image_url": "https://example.com/image4.jpg",
       "content": "This is the content of Example Post 4.",
-      "approved": true
+      "approved": true,
+      "tags": [
+        4,1
+      ]
     }
   },
   {
     "model": "rareapi.post",
     "pk": 5,
     "fields": {
-      "user": 2,
+      "rare_user": 2,
       "category": 2,
       "title": "Example Post 5",
       "publication_date": "2023-11-24",
       "image_url": "https://example.com/image5.jpg",
       "content": "This is the content of Example Post 5.",
-      "approved": true
+      "approved": true,
+      "tags": [
+        6,5
+      ]
     }
   }
 ]
