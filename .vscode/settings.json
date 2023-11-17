@@ -1,6 +1,7 @@
 {
-    "pylint.args": [
-        "--load-plugins=pylint_django",
-        "--django-settings-module=honeyrae.settings",
-    ],
+  "pylint.args": [
+    "--load-plugins=pylint_django",
+    "--django-settings-module=honeyrae.settings"
+  ],
+  "cSpell.ignoreWords": ["rareuser"]
 }
