@@ -1,0 +1,39 @@
+[
+    {
+        "model": "rareapi.tag",
+        "pk": 1,
+        "fields": {
+            "label": "dumb"
+        }
+    }, {
+        "model": "rareapi.tag",
+        "pk": 2,
+        "fields": {
+            "label": "tech"
+        }
+    }, {
+        "model": "rareapi.tag",
+        "pk": 3,
+        "fields": {
+            "label": "fiction"
+        }
+    }, {
+        "model": "rareapi.tag",
+        "pk": 4,
+        "fields": {
+            "label": "non-fiction"
+        }
+    }, {
+        "model": "rareapi.tag",
+        "pk": 5,
+        "fields": {
+            "label": "holiday"
+        }
+    }, {
+        "model": "rareapi.tag",
+        "pk": 6,
+        "fields": {
+            "label": "how-to"
+        }
+    } 
+]
