@@ -1,7 +1,7 @@
 """View module for handling requests about comments"""
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from rest_framework.serializers import Serializer, SerializerMethodField
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from rest_framework import status
 from rareapi.models import Post, Comment, RareUser
 from django.contrib.auth.models import User
@@ -39,28 +39,30 @@ class CommentView(ViewSet):
 
 """Serializers for Comments"""
 
-class AuthorUserSerializer(Serializer):
+class AuthorUserSerializer(ModelSerializer):
     """JSON serializer for user tied to author"""
 
     full_name = SerializerMethodField()
 
     def get_full_name(self, obj):
         return f'{obj.first_name} {obj.last_name}'
-    
+
     class Meta:
         model = User
-        fields = ["id", "full_name",]
+        fields = ("id", "full_name",)
 
-class CommentAuthorSerializer(Serializer):
+class CommentAuthorSerializer(ModelSerializer):
     """JSON serializer for author of comments (rare_user)"""
 
     user = AuthorUserSerializer(many=False)
 
     class Meta:
         model = RareUser
-        fields = ["id", "user",]
+        fields = ("id", "user",)
 
-class CommentSerializer(Serializer):
+
+
+class CommentSerializer(ModelSerializer):
     """JSON serializer for comments"""
 
     is_owner = SerializerMethodField()
@@ -71,4 +73,5 @@ class CommentSerializer(Serializer):
 
     class Meta:
         model = Comment
-        fields = ["id", "post", "author", "content", "created_on", "is_owner",]
+        fields = "__all__"
+
