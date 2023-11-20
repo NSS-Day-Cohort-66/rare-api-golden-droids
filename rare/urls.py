@@ -21,7 +21,7 @@ from rest_framework.routers import DefaultRouter
 
 
 router = DefaultRouter(trailing_slash=False)
-router.register(r'posts', UserPostView, 'post')
+router.register(r'my_posts', UserPostView, 'my_post')
 
 urlpatterns = [
     path('', include(router.urls)),
