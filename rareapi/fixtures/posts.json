@@ -3,7 +3,7 @@
     "model": "rareapi.post",
     "pk": 1,
     "fields": {
-      "user": 1,
+      "rare_user": 1,
       "category": 1,
       "title": "Example Post 1",
       "publication_date": "2023-11-20",
@@ -16,7 +16,7 @@
     "model": "rareapi.post",
     "pk": 2,
     "fields": {
-      "user": 2,
+      "rare_user": 2,
       "category": 2,
       "title": "Example Post 2",
       "publication_date": "2023-11-21",
@@ -29,7 +29,7 @@
     "model": "rareapi.post",
     "pk": 3,
     "fields": {
-      "user": 1,
+      "rare_user": 1,
       "category": 1,
       "title": "Example Post 3",
       "publication_date": "2023-11-22",
@@ -42,7 +42,7 @@
     "model": "rareapi.post",
     "pk": 4,
     "fields": {
-      "user": 3,
+      "rare_user": 3,
       "category": 3,
       "title": "Example Post 4",
       "publication_date": "2023-11-23",
@@ -55,7 +55,7 @@
     "model": "rareapi.post",
     "pk": 5,
     "fields": {
-      "user": 2,
+      "rare_user": 2,
       "category": 2,
       "title": "Example Post 5",
       "publication_date": "2023-11-24",
