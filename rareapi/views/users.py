@@ -27,10 +27,8 @@ class UserViewSet(viewsets.ViewSet):
                 email=serializer.validated_data['email'],
                 password=serializer.validated_data['password']
             )
-            rareuser = User.objects.create_user(
-                bio=serializer.validated_data['bio']
-            )
-            token, created = Token.objects.get_or_create(user=user, rareuser=rareuser)
+            
+            token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)        
 
