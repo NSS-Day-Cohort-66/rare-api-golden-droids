@@ -6,7 +6,7 @@ from rest_framework.response import Response
 class UserPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['title', 'rare_user', 'category', 'publication_date', 'content']
+        fields = ['id', 'title', 'rare_user', 'category', 'publication_date', 'content']
 
 class UserPostView(viewsets.ViewSet):
     def list(self, request):

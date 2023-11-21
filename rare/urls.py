@@ -21,7 +21,7 @@ from rest_framework.routers import DefaultRouter
 
 
 
-, CommentView
+
 
 router = DefaultRouter(trailing_slash=False)
 router.register(r'posts', UserPostView, 'post')
