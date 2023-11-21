@@ -37,6 +37,15 @@ class TagView(ViewSet):
         except Exception as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
+    
+    def create(self, request):
+        label = request.data.get('label')
+
+        tag = Tag.objects.create(
+            label=label
+        )
+        serializer = TagSerializer(tag, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class TagSerializer(ModelSerializer):
     class Meta:
