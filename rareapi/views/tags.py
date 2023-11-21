@@ -36,6 +36,27 @@ class TagView(ViewSet):
         
         except Exception as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    def update(self, request, pk):
+        """Handle PUT requests for a single tag
+
+        Returns:
+            Response -- 204, 400, 403, or 404 status
+        """
+        try:
+            tag = Tag.object.get(pk=pk)
+            if request.user.is_staff:
+                serializer = TagSerializer(data=request.data)
+                if serializer.is_valid():
+                    tag.label = serializer.validated_data["label"]
+                    tag.save()
+
+                    serializer = TagSerializer(tag, context={"request": request})
+                    return Response(None, status=status.HTTP_204_NO_CONTENT)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "You do not have admin rights"}, status=status.HTTP_403_FORBIDDEN)
+        except Tag.DoesNotExist as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
             
 
 class TagSerializer(ModelSerializer):
