@@ -16,8 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rareapi.views import login_user, CategoryViewSet, CommentView
 from rest_framework.routers import DefaultRouter
+from rareapi.views import login_user, CategoryViewSet, CommentView, UserViewSet
 
 
 router = DefaultRouter(trailing_slash=False)
@@ -28,5 +28,5 @@ urlpatterns = [
     path("", include(router.urls)),
     path('admin/', admin.site.urls),
     path('login', login_user),
-    path('register', login_user),
+    path('register', UserViewSet.as_view({'post': 'register_account'}), name='register'),
 ]
