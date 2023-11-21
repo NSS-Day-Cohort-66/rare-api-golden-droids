@@ -21,8 +21,6 @@ from rest_framework.routers import DefaultRouter
 
 
 
-, TagView
-
 router = DefaultRouter(trailing_slash=False)
 router.register(r'posts', UserPostView, 'post')
 router.register(r'categories', CategoryViewSet, 'category')
