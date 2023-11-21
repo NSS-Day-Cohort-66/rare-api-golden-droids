@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -27,6 +27,38 @@ class UserViewSet(viewsets.ViewSet):
                 email=serializer.validated_data['email'],
                 password=serializer.validated_data['password']
             )
-            token, created = Token.objects.get_or_create(user=user)
+            rareuser = User.objects.create_user(
+                bio=serializer.validated_data['bio']
+            )
+            token, created = Token.objects.get_or_create(user=user, rareuser=rareuser)
             return Response({"token": token.key}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)        
+
+    @action(detail=False, methods=['post'], url_path='login')
+    def login_user(request):
+        '''Handles the authentication of a user
+
+        Method arguments:
+        request -- The full HTTP request object
+        '''
+        username = request.data['username']
+        password = request.data['password']
+
+        # Use the built-in authenticate method to verify
+        # authenticate returns the user object or None if no user is found
+        authenticated_user = authenticate(username=username, password=password)
+
+        # If authentication was successful, respond with their token
+        if authenticated_user is not None:
+            token = Token.objects.get(user=authenticated_user)
+
+            data = {
+                'valid': True,
+                'token': token.key,
+                'staff': token.user.is_staff
+            }
+            return Response(data)
+        else:
+            # Bad login details were provided. So we can't log the user in.
+            data = { 'valid': False }
+            return Response(data)
