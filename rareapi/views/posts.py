@@ -1,9 +1,16 @@
 from rareapi.models import Post
 from rest_framework import serializers, viewsets
 from rest_framework.response import Response
+from .comments import CommentAuthorSerializer
+from .categories import CategorySerializer
 
 # ? serializer to show logged in user's posts
+
+
 class UserPostSerializer(serializers.ModelSerializer):
+
+    rare_user = CommentAuthorSerializer(many=False)
+    category = CategorySerializer(many=False)
     class Meta:
         model = Post
         fields = ['id', 'title', 'rare_user', 'category', 'publication_date', 'content']
