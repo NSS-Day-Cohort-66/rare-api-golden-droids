@@ -18,11 +18,24 @@ class TagView(ViewSet):
         serializer = TagSerializer(tags, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
+    def retrieve(self, request, pk=None):
+        """Handle GET requests for a single tag
+
+        Returns:
+            Response -- JSON serialized object
+        """
+        try:
+            tag = Tag.objects.get(pk=pk)
+            serializer = TagSerializer(tag, context={"request": request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Tag.DoesNotExist as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+    
     def destroy(self, request, pk=None):
         """Handle DELETE requests for a single tag
 
         Returns:
-            Response -- 204, 403, 404, or 500 status
+            Response -- empty response body
         """
         try:
             tag = Tag.objects.get(pk=pk)
@@ -41,7 +54,7 @@ class TagView(ViewSet):
         """Handle PUT requests for a single tag
 
         Returns:
-            Response -- 204, 400, 403, or 404 status
+            Response -- JSON serialized object
         """
         try:
             tag = Tag.objects.get(pk=pk)
