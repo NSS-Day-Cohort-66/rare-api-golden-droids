@@ -44,7 +44,7 @@ class TagView(ViewSet):
             Response -- 204, 400, 403, or 404 status
         """
         try:
-            tag = Tag.object.get(pk=pk)
+            tag = Tag.objects.get(pk=pk)
             if request.user.is_staff:
                 serializer = TagSerializer(data=request.data)
                 if serializer.is_valid():
@@ -52,7 +52,7 @@ class TagView(ViewSet):
                     tag.save()
 
                     serializer = TagSerializer(tag, context={"request": request})
-                    return Response(None, status=status.HTTP_204_NO_CONTENT)
+                    return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             return Response({"message": "You do not have admin rights"}, status=status.HTTP_403_FORBIDDEN)
         except Tag.DoesNotExist as ex:
