@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
@@ -26,10 +27,12 @@ def login_user(request):
 
         data = {
             'valid': True,
-            'token': token.key
+            'token': token.key,
+            'staff': token.user.is_staff
         }
         return Response(data)
     else:
         # Bad login details were provided. So we can't log the user in.
         data = { 'valid': False }
         return Response(data)
+    
