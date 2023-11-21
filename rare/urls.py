@@ -17,12 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from rareapi.views import login_user, CategoryViewSet, CommentView, UserViewSet
-
+from rareapi.views import login_user, CategoryViewSet, CommentView, UserViewSet, TagView
 
 router = DefaultRouter(trailing_slash=False)
 router.register(r'categories', CategoryViewSet, 'category')
 router.register(r"comments", CommentView, "comment")
+router.register(r"tags", TagView, "tag")
 
 urlpatterns = [
     path("", include(router.urls)),
