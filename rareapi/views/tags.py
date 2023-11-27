@@ -2,7 +2,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.serializers import ModelSerializer 
 from rest_framework.response import Response
 from rest_framework import status
-from rareapi.models import Tag, RareUser
+from rareapi.models import Tag
 
 
 class TagView(ViewSet):
