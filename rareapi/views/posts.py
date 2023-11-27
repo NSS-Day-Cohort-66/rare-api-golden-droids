@@ -1,7 +1,7 @@
 from rareapi.models import Post
 from rest_framework import serializers, viewsets
 from rest_framework.response import Response
-from .comments import CommentAuthorSerializer
+from .comments import RareUserSerializer
 from .categories import CategorySerializer
 from rest_framework import status
 
@@ -11,7 +11,7 @@ from rest_framework import status
 
 class PostSerializer(serializers.ModelSerializer):
 
-    rare_user = CommentAuthorSerializer(many=False)
+    rare_user = RareUserSerializer(many=False)
     category = CategorySerializer(many=False)
     class Meta:
         model = Post

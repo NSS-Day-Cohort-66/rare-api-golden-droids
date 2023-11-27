@@ -60,7 +60,7 @@ class CommentView(ViewSet):
 
 """Serializers for Comments"""
 
-class AuthorUserSerializer(ModelSerializer):
+class UserSerializer(ModelSerializer):
     """JSON serializer for user tied to author"""
 
     full_name = SerializerMethodField()
@@ -72,10 +72,10 @@ class AuthorUserSerializer(ModelSerializer):
         model = User
         fields = ("id", "full_name",)
 
-class CommentAuthorSerializer(ModelSerializer):
+class RareUserSerializer(ModelSerializer):
     """JSON serializer for author of comments (rare_user)"""
 
-    user = AuthorUserSerializer(many=False)
+    user = UserSerializer(many=False)
 
     class Meta:
         model = RareUser
@@ -85,7 +85,7 @@ class CommentSerializer(ModelSerializer):
     """JSON serializer for comments"""
 
     is_owner = SerializerMethodField()
-    author = CommentAuthorSerializer(many=False)
+    author = RareUserSerializer(many=False)
 
     def get_is_owner(self, obj):
         return self.context["request"].user == obj.author.user
