@@ -21,3 +21,5 @@ class UserPostView(viewsets.ViewSet):
         posts = Post.objects.filter(rare_user__user=request.auth.user).order_by('-publication_date')
         serializer = UserPostSerializer(posts, many=True, context={'request': request})
         return Response(serializer.data)
+    # ? left off asking chat GPT how i could get all posts and then filter to current user's in same view
+    # ? not sure how you'd implement it correctly or if having duplicate code is easier
