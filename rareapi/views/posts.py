@@ -7,7 +7,7 @@ from .categories import CategorySerializer
 # ? serializer to show logged in user's posts
 
 
-class UserPostSerializer(serializers.ModelSerializer):
+class AllPostsSerializer(serializers.ModelSerializer):
 
     rare_user = CommentAuthorSerializer(many=False)
     category = CategorySerializer(many=False)
@@ -23,3 +23,4 @@ class UserPostView(viewsets.ViewSet):
         return Response(serializer.data)
     # ? left off asking chat GPT how i could get all posts and then filter to current user's in same view
     # ? not sure how you'd implement it correctly or if having duplicate code is easier
+
