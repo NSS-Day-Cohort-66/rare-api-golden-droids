@@ -5,6 +5,7 @@ from .comments import RareUserSerializer
 from .categories import CategorySerializer
 from rest_framework import status
 
+from django.utils import timezone
 
 # ? serializer to show logged in user's posts
 
@@ -19,8 +20,20 @@ class PostSerializer(serializers.ModelSerializer):
 
 class PostView(viewsets.ViewSet):
     def list(self, request):
-        #? rare_user__user=request.auth.user starts at rare_user table and joins user table to check user's id pk to authorized user's id
-        posts = Post.objects.filter(rare_user__user=request.auth.user).order_by('-publication_date')
+        # get query parameters from request for specific user
+        rare_user = self.request.query_params.get('rare_user', None)
+
+        # filter approved posts only
+        posts = Post.objects.filter(approved=True, publication_date__lte=timezone.now())
+
+        # filter to allow for all and specific user's posts
+        # if checks for specific user
+        if rare_user is not None and rare_user == "current":
+            posts = Post.objects.filter(rare_user__user=request.auth.user).order_by('-publication_date')
+        else:
+            # otherwise get all posts
+            posts = Post.objects.all().order_by('-publication_date')
+
         serializer = PostSerializer(posts, many=True, context={'request': request})
         return Response(serializer.data)
     
@@ -36,3 +49,4 @@ class PostView(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Post.DoesNotExist as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
