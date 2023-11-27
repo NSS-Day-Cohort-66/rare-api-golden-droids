@@ -81,8 +81,6 @@ class CommentAuthorSerializer(ModelSerializer):
         model = RareUser
         fields = ("id", "user",)
 
-
-
 class CommentSerializer(ModelSerializer):
     """JSON serializer for comments"""
 
