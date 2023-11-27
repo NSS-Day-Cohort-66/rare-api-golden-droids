@@ -22,4 +22,23 @@ class CategoryViewSet(viewsets.ViewSet):
 
         serializer = CategorySerializer(category, context={'request': request})
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a singular Category
+
+        Returns:
+            Response -- 204, 403, 404, or 500 status
+        """
+        try:
+            category = Category.objects.get(pk=pk)
+            if request.user.is_staff:
+                category.delete()
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({"message": "You don't have admin rights!"}, status=status.HTTP_403_FORBIDDEN)
+        except Category.DoesNotExist as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Exception as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
