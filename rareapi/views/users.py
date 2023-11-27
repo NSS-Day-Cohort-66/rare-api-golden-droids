@@ -29,9 +29,8 @@ class UserViewSet(viewsets.ViewSet):
                 password=serializer.validated_data['password']
             )
 
-            
-            rare_user = RareUser.objects.create(
-
+            RareUser.objects.create(
+                bio = request.data.get("bio")
             )
             
             token, created = Token.objects.get_or_create(user=user)
