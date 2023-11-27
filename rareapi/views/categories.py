@@ -13,6 +13,19 @@ class CategoryViewSet(viewsets.ViewSet):
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
     
+    def retrieve(self, request, pk=None):
+        """Handle GET requests for a single tag
+
+        Returns:
+            Response -- JSON serialized object
+        """
+        try:
+            category = Category.objects.get(pk=pk)
+            serializer = CategorySerializer(category, context={"request": request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Category.DoesNotExist as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+    
     def create(self, request):
         label = request.data.get('label')
 
