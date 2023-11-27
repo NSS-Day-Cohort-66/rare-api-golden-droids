@@ -9,7 +9,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class CategoryViewSet(viewsets.ViewSet):
     def list(self, request):
-        categories = Category.objects.all()
+        categories = Category.objects.all().order_by("label")
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
     
