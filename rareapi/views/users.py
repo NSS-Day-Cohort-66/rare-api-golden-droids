@@ -5,6 +5,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from rareapi.models import RareUser
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,13 +28,18 @@ class UserViewSet(viewsets.ViewSet):
                 email=serializer.validated_data['email'],
                 password=serializer.validated_data['password']
             )
+
+            
+            rare_user = RareUser.objects.create(
+
+            )
             
             token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)        
 
     @action(detail=False, methods=['post'], url_path='login')
-    def login_user(request):
+    def login_user(self, request):
         '''Handles the authentication of a user
 
         Method arguments:
