@@ -55,6 +55,10 @@ class CommentView(ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as ex:
             return Response(ex, status=status.HTTP_400_BAD_REQUEST)
+        
+
+    # def destroy(self, request, pk=None):
+
 
 
 
