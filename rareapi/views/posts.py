@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from .comments import CommentAuthorSerializer
 from .categories import CategorySerializer
 from rest_framework import status
-
 from django.utils import timezone
 
 # ? serializer to show logged in user's posts
