@@ -6,13 +6,11 @@
       "rare_user": 1,
       "category": 1,
       "title": "Example Post 1",
-      "publication_date": "2023-11-20",
+      "publication_date": "2023-11-29",
       "image_url": "https://example.com/image1.jpg",
       "content": "This is the content of Example Post 1.",
       "approved": true,
-      "tags": [
-        2,3
-      ]
+      "tags": [2, 3]
     }
   },
   {
@@ -26,9 +24,7 @@
       "image_url": "https://example.com/image2.jpg",
       "content": "This is the content of Example Post 2.",
       "approved": true,
-      "tags": [
-        5,1
-      ]
+      "tags": [5, 1]
     }
   },
   {
@@ -41,10 +37,8 @@
       "publication_date": "2023-11-22",
       "image_url": "https://example.com/image3.jpg",
       "content": "This is the content of Example Post 3.",
-      "approved": true,
-      "tags": [
-        2,6
-      ]
+      "approved": false,
+      "tags": [2, 6]
     }
   },
   {
@@ -58,9 +52,7 @@
       "image_url": "https://example.com/image4.jpg",
       "content": "This is the content of Example Post 4.",
       "approved": true,
-      "tags": [
-        4,1
-      ]
+      "tags": [4, 1]
     }
   },
   {
@@ -74,9 +66,7 @@
       "image_url": "https://example.com/image5.jpg",
       "content": "This is the content of Example Post 5.",
       "approved": true,
-      "tags": [
-        6,5
-      ]
+      "tags": [6, 5]
     }
   }
 ]
