@@ -13,10 +13,7 @@ python3 manage.py loaddata tags
 python3 manage.py loaddata posts
 python3 manage.py loaddata comments
 python3 manage.py loaddata reactions
-<<<<<<< HEAD
 python3 manage.py loaddata post_reactions
 python3 manage.py loaddata post_tags
-=======
 python3 manage.py loaddata subscriptions
 python3 manage.py loaddata demotion_queue
->>>>>>> zd-models-fixtures
