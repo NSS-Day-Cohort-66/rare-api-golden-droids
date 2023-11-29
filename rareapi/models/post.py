@@ -10,3 +10,4 @@ class Post(models.Model):
     content = models.TextField()
     approved = models.BooleanField(default=True)
     tags = models.ManyToManyField("Tag", through="PostTag", related_name="posts")
+    post_reaction_set = models.ManyToManyField("Reaction", through="PostReaction", related_name="posts")
