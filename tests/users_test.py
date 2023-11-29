@@ -39,7 +39,10 @@ class UserTest(APITestCase):
 
         # Check the user properties in database
         user = User.objects.get(username='triciaswift')
+        self.assertEqual(user.first_name, "Tricia")
         self.assertEqual(user.last_name, "Swift")
+        self.assertEqual(user.email, "tricia@swift.com")
+        self.assertFalse(user.is_staff)
 
         # Check the rare_user properties in database
         rare_user = RareUser.objects.get(bio='I like dogs')
