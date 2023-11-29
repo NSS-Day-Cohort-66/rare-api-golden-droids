@@ -1,32 +1,32 @@
 [
-    {
-      "model": "rareapi.reaction",
-      "pk": 1,
-      "fields": { "label": "smiley", "image_url": "" }
-    },
-    {
-      "model": "rareapi.reaction",
-      "pk": 2,
-      "fields": { "label": "frown", "image_url": "" }
-    },
-    {
-      "model": "rareapi.reaction",
-      "pk": 3,
-      "fields": { "label": "thumb up", "image_url": "" }
-    },
-    {
-      "model": "rareapi.reaction",
-      "pk": 4,
-      "fields": { "label": "crying", "image_url": "" }
-    },
-    {
-      "model": "rareapi.reaction",
-      "pk": 5,
-      "fields": { "label": "middle finger", "image_url": "" }
-    },
-    {
-      "model": "rareapi.reaction",
-      "pk": 6,
-      "fields": { "label": "trash can", "image_url": "" }
-    }
-  ]
+  {
+    "model": "rareapi.reaction",
+    "pk": 1,
+    "fields": { "label": "smiley", "image_url": "" }
+  },
+  {
+    "model": "rareapi.reaction",
+    "pk": 2,
+    "fields": { "label": "frown", "image_url": "" }
+  },
+  {
+    "model": "rareapi.reaction",
+    "pk": 3,
+    "fields": { "label": "thumb up", "image_url": "" }
+  },
+  {
+    "model": "rareapi.reaction",
+    "pk": 4,
+    "fields": { "label": "crying", "image_url": "" }
+  },
+  {
+    "model": "rareapi.reaction",
+    "pk": 5,
+    "fields": { "label": "middle finger", "image_url": "" }
+  },
+  {
+    "model": "rareapi.reaction",
+    "pk": 6,
+    "fields": { "label": "trash can", "image_url": "" }
+  }
+]

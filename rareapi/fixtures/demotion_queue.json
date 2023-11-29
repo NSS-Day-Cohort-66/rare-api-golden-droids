@@ -1,0 +1,12 @@
+[
+  {
+    "model": "rareapi.demotionqueue",
+    "pk": 1,
+    "fields": { "action": "promotion", "admin": 2, "approver_one": 3 }
+  },
+  {
+    "model": "rareapi.demotionqueue",
+    "pk": 2,
+    "fields": { "action": "demotion", "admin": 2, "approver_one": 3 }
+  }
+]

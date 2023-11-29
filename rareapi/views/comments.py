@@ -20,10 +20,10 @@ class CommentView(ViewSet):
         post_id = self.request.query_params.get("post", None)
 
         try:
-            comments = Comment.objects.all().order_by('created_on')
+            comments = Comment.objects.all().order_by('-created_on')
             # Format created_on to only have the date before serializing
             if post_id is not None:
-                comments = Comment.objects.filter(post_id=post_id).order_by('created_on')
+                comments = Comment.objects.filter(post_id=post_id).order_by('-created_on')
             for comment in comments:
                 comment.created_on = comment.created_on.strftime("%m-%d-%Y")
             serializer = CommentSerializer(comments, many=True, context={"request": request})
@@ -55,6 +55,9 @@ class CommentView(ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as ex:
             return Response(ex, status=status.HTTP_400_BAD_REQUEST)
+        
+
+
 
 
 

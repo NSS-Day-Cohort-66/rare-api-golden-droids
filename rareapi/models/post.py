@@ -6,6 +6,7 @@ class Post(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name="posts")
     title = models.CharField(max_length=250)
     publication_date = models.DateField(auto_now_add=True)
+    # URLField or ImageField?
     image_url = models.URLField()
     content = models.TextField()
     approved = models.BooleanField(default=True)
