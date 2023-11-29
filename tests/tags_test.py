@@ -49,3 +49,12 @@ class TagTest(APITestCase):
 
         response = self.client.get(f"/tags/1")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_retrieve_tag(self):
+        response = self.client.get(f"/tags/1")
+
+        json_response = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(json_response["label"], "dumb")
