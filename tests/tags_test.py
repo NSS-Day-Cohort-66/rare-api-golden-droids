@@ -42,3 +42,10 @@ class TagTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json_response["label"], "dumb test")
+
+    def test_destroy_tag(self):
+        response = self.client.delete(f"/tags/1")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        response = self.client.get(f"/tags/1")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
