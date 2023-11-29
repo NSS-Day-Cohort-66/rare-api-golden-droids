@@ -73,7 +73,8 @@ class UserViewSet(viewsets.ViewSet):
             data = {
                 'valid': True,
                 'token': token.key,
-                'staff': token.user.is_staff
+                'staff': token.user.is_staff,
+                'id': token.user.id
             }
             return Response(data)
         else:
