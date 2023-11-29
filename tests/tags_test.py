@@ -28,3 +28,17 @@ class TagTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         self.assertEqual(json_response["label"], "Test Tag")
+
+    def test_update_tag(self):
+        data = {
+            "label": "dumb test"
+        }
+
+        response = self.client.put(f"/tags/1", data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        response = self.client.get(f"/tags/1")
+        json_response = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(json_response["label"], "dumb test")
