@@ -20,10 +20,10 @@ class CommentView(ViewSet):
         post_id = self.request.query_params.get("post", None)
 
         try:
-            comments = Comment.objects.all().order_by('created_on')
+            comments = Comment.objects.all().order_by('-created_on')
             # Format created_on to only have the date before serializing
             if post_id is not None:
-                comments = Comment.objects.filter(post_id=post_id).order_by('created_on')
+                comments = Comment.objects.filter(post_id=post_id).order_by('-created_on')
             for comment in comments:
                 comment.created_on = comment.created_on.strftime("%m-%d-%Y")
             serializer = CommentSerializer(comments, many=True, context={"request": request})
@@ -57,14 +57,13 @@ class CommentView(ViewSet):
             return Response(ex, status=status.HTTP_400_BAD_REQUEST)
         
 
-    # def destroy(self, request, pk=None):
 
 
 
 
 """Serializers for Comments"""
 
-class AuthorUserSerializer(ModelSerializer):
+class UserSerializer(ModelSerializer):
     """JSON serializer for user tied to author"""
 
     full_name = SerializerMethodField()
@@ -76,10 +75,10 @@ class AuthorUserSerializer(ModelSerializer):
         model = User
         fields = ("id", "full_name",)
 
-class CommentAuthorSerializer(ModelSerializer):
+class RareUserSerializer(ModelSerializer):
     """JSON serializer for author of comments (rare_user)"""
 
-    user = AuthorUserSerializer(many=False)
+    user = UserSerializer(many=False)
 
     class Meta:
         model = RareUser
@@ -89,7 +88,7 @@ class CommentSerializer(ModelSerializer):
     """JSON serializer for comments"""
 
     is_owner = SerializerMethodField()
-    author = CommentAuthorSerializer(many=False)
+    author = RareUserSerializer(many=False)
 
     def get_is_owner(self, obj):
         return self.context["request"].user == obj.author.user

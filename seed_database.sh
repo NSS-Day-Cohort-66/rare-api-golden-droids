@@ -12,3 +12,6 @@ python3 manage.py loaddata categories
 python3 manage.py loaddata tags
 python3 manage.py loaddata posts
 python3 manage.py loaddata comments
+python3 manage.py loaddata reactions
+python3 manage.py loaddata subscriptions
+python3 manage.py loaddata demotion_queue
