@@ -58,3 +58,13 @@ class TagTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         self.assertEqual(json_response["label"], "dumb")
+
+    def test_list_tag(self):
+        response = self.client.get(f"/tags")
+
+        json_response = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(json_response[0]["label"], "dumb")
+        self.assertEqual(json_response[1]["label"], "fiction")
