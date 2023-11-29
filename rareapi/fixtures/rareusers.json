@@ -31,5 +31,16 @@
       "active": "True",
       "user": "3"
     }
+  },
+  {
+    "model": "rareapi.rareuser",
+    "pk": 4,
+    "fields": {
+      "bio": "sharkattack",
+      "profile_image_url": "",
+      "created_on": "2023-11-28",
+      "active": "True",
+      "user": "4"
+    }
   }
 ]

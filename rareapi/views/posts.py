@@ -1,22 +1,27 @@
-from rareapi.models import Post
+from rareapi.models import Post, PostReaction
 from rest_framework import serializers, viewsets
 from rest_framework.response import Response
 from .comments import RareUserSerializer
 from .categories import CategorySerializer
 from rest_framework import status
-
 from django.utils import timezone
 
 # ? serializer to show logged in user's posts
-print(timezone.now())
+
+class PostReactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostReaction
+        fields = ['id', 'post', 'rare_user', 'reaction']
+
 
 class PostSerializer(serializers.ModelSerializer):
 
     rare_user = RareUserSerializer(many=False)
     category = CategorySerializer(many=False)
+    post_reactions = PostReactionSerializer(many=True, source='postreaction_set')
     class Meta:
         model = Post
-        fields = ['id', 'title', 'rare_user', 'category', 'publication_date', 'image_url', 'content', 'approved']
+        fields = ['id', 'title', 'rare_user', 'category', 'publication_date', 'content', 'post_reactions', 'approved']
 
 class PostView(viewsets.ViewSet):
     def list(self, request):
