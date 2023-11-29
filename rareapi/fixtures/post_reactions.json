@@ -1,26 +1,26 @@
 [
   {
-    "model": "rareapi.post_reactions",
+    "model": "rareapi.postreaction",
     "pk": 1,
     "fields": { "rare_user": 1, "post": 1, "reaction": 1 }
   },
   {
-    "model": "rareapi.post_reactions",
+    "model": "rareapi.postreaction",
     "pk": 2,
     "fields": { "rare_user": 2, "post": 2, "reaction": 2 }
   },
   {
-    "model": "rareapi.post_reactions",
+    "model": "rareapi.postreaction",
     "pk": 3,
     "fields": { "rare_user": 3, "post": 3, "reaction": 3 }
   },
   {
-    "model": "rareapi.post_reactions",
+    "model": "rareapi.postreaction",
     "pk": 4,
     "fields": { "rare_user": 4, "post": 4, "reaction": 4 }
   },
   {
-    "model": "rareapi.post_reactions",
+    "model": "rareapi.postreaction",
     "pk": 5,
     "fields": { "rare_user": 2, "post": 3, "reaction": 1 }
   }
