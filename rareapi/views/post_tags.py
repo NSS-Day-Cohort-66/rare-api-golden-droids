@@ -20,3 +20,12 @@ class PostTagView(ViewSet):
         post_tags= PostTag.objects.all()
         serializer = PostTagSerializer(post_tags, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def create(self, request):
+        serializer = PostTagSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
