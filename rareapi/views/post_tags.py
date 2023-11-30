@@ -3,11 +3,27 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rareapi.models import Tag, Post, PostTag
+from .posts import PostSerializer
+
+# class PostSerializer(ModelSerializer):
+#     class Meta:
+#         model = Post
+#         fields = ['title']
+
+# class TagSerializer(ModelSerializer):
+#     class Meta:
+#         model = Tag
+#         fields = ['label']
 
 class PostTagSerializer(ModelSerializer):
+
+    # post = PostSerializer(many=False)
+    # tag = TagSerializer(many=False)
+
     class Meta:
         model = PostTag
-        fields = "__all__"
+        fields = ["id", "post", "tag"]
+        # , "post", "tag"
 
 class PostTagView(ViewSet):
     """Rare Post Tags view"""
