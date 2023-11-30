@@ -64,9 +64,10 @@ class PostView(viewsets.ViewSet):
         """
         try:
             post = Post.objects.get(pk=pk)
-            post.delete()
-            return Response(None, status=status.HTTP_204_NO_CONTENT)
-
+            if post.rare_user.user_id == request.user.id:
+                post.delete()
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            return Response({"message": "You are not the author of this post."}, status=status.HTTP_403_FORBIDDEN)
         except Post.DoesNotExist as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
         
