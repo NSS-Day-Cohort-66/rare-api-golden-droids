@@ -54,4 +54,21 @@ class PostView(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Post.DoesNotExist as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single post
+
+        Returns:
+            Response -- empty response body
+        """
+        try:
+            post = Post.objects.get(pk=pk)
+            post.delete()
+            return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+        except Post.DoesNotExist as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Exception as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
