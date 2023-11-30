@@ -42,7 +42,7 @@ class CategoryTest(APITestCase):
         # Assert that the properties on the created resource are correct
         self.assertEqual(json_response["label"], "Test Category")
 
-    def test_get_category(self):
+    def test_get_a_single_category(self):
         """Ensure we can get an existing category
         """
 
@@ -58,7 +58,7 @@ class CategoryTest(APITestCase):
         # Assert that the values are correct
         self.assertEqual(json_response["label"], "Lifestyle")
 
-    def test_get_categories(self):
+    def test_get_all_categories(self):
         """Ensure we can get a list of existing categories
         """
 
@@ -73,7 +73,7 @@ class CategoryTest(APITestCase):
 
         # Assert that the values are correct
         self.assertEqual(json_response[0]["label"], "Cooking")
-        self.assertEqual(json_response[1]["label"], "Lifestyle")
+        self.assertEqual(json_response[2]["label"], "Traveling")
 
     def test_change_category(self):
         """

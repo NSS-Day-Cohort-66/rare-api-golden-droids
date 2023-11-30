@@ -67,4 +67,4 @@ class TagTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         self.assertEqual(json_response[0]["label"], "dumb")
-        self.assertEqual(json_response[1]["label"], "fiction")
+        self.assertEqual(json_response[5]["label"], "tech")
