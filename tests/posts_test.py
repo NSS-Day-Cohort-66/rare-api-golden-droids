@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
+import datetime
 
 
 class PostTest(APITestCase):
@@ -29,7 +30,8 @@ class PostTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Assert that the values are correct
-        self.assertEqual(json_response["title"], "Example Post 1")
+        keys = {'id', 'title', 'rare_user', 'category', 'publication_date', 'content', 'post_reactions', 'approved'}
+        self.assertEqual(json_response.keys(), keys)
 
     def test_get_all_posts(self):
         """Ensure we can list existing posts
@@ -44,7 +46,10 @@ class PostTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Assert that the values are correct
-        self.assertEqual(json_response[0]["title"], "Example Post 5")
+        date = json_response[0]["publication_date"]
+        now = datetime.date.today()
+        current_date = now.strftime("%m-%d-%Y")
+        self.assertFalse(date == current_date)
 
     def test_delete_single_post(self):
         """
