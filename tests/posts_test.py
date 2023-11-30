@@ -16,10 +16,9 @@ class PostTest(APITestCase):
         token = Token.objects.get(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION=f"Token {token.key}")
 
-    def test_get_post(self):
+    def test_get_single_post(self):
         """Ensure we can retrieve an existing post
         """
-
         # Initiate request and store response
         response = self.client.get(f"/posts/1")
 
@@ -32,10 +31,9 @@ class PostTest(APITestCase):
         # Assert that the values are correct
         self.assertEqual(json_response["title"], "Example Post 1")
 
-    def test_get_posts(self):
+    def test_get_all_posts(self):
         """Ensure we can list existing posts
         """
-
         # Initiate request and store response
         response = self.client.get(f"/posts")
 
@@ -47,3 +45,15 @@ class PostTest(APITestCase):
 
         # Assert that the values are correct
         self.assertEqual(json_response[0]["title"], "Example Post 5")
+
+    def test_delete_single_post(self):
+        """
+        Ensure we can delete an existing post.
+        """
+        # DELETE the post you just created
+        response = self.client.delete(f"/posts/1")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        # GET the post again to verify you get a 404 response
+        response = self.client.get(f"/posts/1")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
