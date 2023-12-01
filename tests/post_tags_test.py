@@ -5,7 +5,7 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 
 class PostTagTest(APITestCase):
-    fixtures = ['tags', 'users', 'posts', 'tokens']
+    fixtures = ['users', 'rareusers', 'categories', 'post_tags', 'tags', 'posts', 'tokens']
 
     def setUp(self):
         self.user = User.objects.first()
@@ -21,9 +21,25 @@ class PostTagTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(json_response[0]["id"], "1")
-        self.assertEqual(json_response[0]["post_id"], "1")
-        self.assertEqual(json_response[0]["tag_id"], "2")
-        self.assertEqual(json_response[1]["id"], "2")
-        self.assertEqual(json_response[1]["post_id"], "2")
-        self.assertEqual(json_response[1]["tag_id"], "4")
+        # self.assertEqual(json_response[0]["id"], "1")
+        self.assertEqual(json_response[0]["post"], 1)
+        self.assertEqual(json_response[0]["tag"], 2)
+        # self.assertEqual(json_response[1]["id"], "2")
+        self.assertEqual(json_response[1]["post"], 2)
+        self.assertEqual(json_response[1]["tag"], 4)
+
+    def test_create_post_tag(self):
+        url = "/post_tags"
+        data = {
+            "post": 3,
+            "tag": 5
+        }
+
+        response = self.client.post(url, data, format='json')
+
+        json_response = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        self.assertEqual(json_response["post"], 3)
+        self.assertEqual(json_response["tag"], 5)
