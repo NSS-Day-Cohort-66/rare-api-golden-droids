@@ -19,6 +19,7 @@ from django.urls import include, path
 from rareapi.views import UserViewSet, PostView, CategoryViewSet, CommentView, TagView
 from rest_framework.routers import DefaultRouter
 from rareapi.views import CategoryViewSet, CommentView, TagView, UserViewSet, PostView
+from django.conf.urls.static import static
 
 
 router = DefaultRouter(trailing_slash=False)
@@ -32,4 +33,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login', UserViewSet.as_view({"post": "login_user"}), name="login"),
     path('register', UserViewSet.as_view({'post': 'register_account'}), name='register'),
-]
+] # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
