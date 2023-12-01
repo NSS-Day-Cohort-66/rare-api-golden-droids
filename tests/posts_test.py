@@ -38,14 +38,14 @@ class PostTest(APITestCase):
         post.rare_user = RareUser.objects.get(user_id=self.user.id)
         post.category = Category.objects.get(pk=2)
         post.title = "Test"
-        post.image_url = "https://example.com/image6.jpg"
+        post.image_url = None
         post.content = "This is a test"
         post.approved = True
 
         data = {
             "categoryId": 3,
             "title": "Test Post",
-            "image_url": "https://example.com/image1.jpg",
+            "image_url": None,
             "content": "This is a test."
         }
 
@@ -59,7 +59,7 @@ class PostTest(APITestCase):
         self.assertEqual(json_response["rare_user"]["id"], self.rare_user.id)
         self.assertEqual(json_response["title"], "Test Post")
         self.assertEqual(json_response["category"]["label"], "Traveling")
-        self.assertEqual(json_response["image_url"], "https://example.com/image1.jpg")
+        self.assertEqual(json_response["image_url"], None)
         self.assertEqual(json_response["content"], "This is a test.")
         self.assertTrue(json_response["approved"])
 
@@ -73,6 +73,5 @@ class PostTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         for post in json_response:
-            print(post["rare_user"]["id"])
             if post["rare_user"]["id"] != self.rare_user.id:
                 self.fail("Unexpected post for another user found in the response.")
