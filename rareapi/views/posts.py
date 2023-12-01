@@ -95,23 +95,25 @@ class PostView(viewsets.ViewSet):
         try:
             post = Post.objects.get(pk=pk)
 
-            # This is handling the image
-            # format, imgstr = request.data["image_url"].split(';base64,')
-            # ext = format.split('/')[-1]
-            # data = ContentFile(base64.b64decode(imgstr), name=f'{pk}-{uuid.uuid4()}.{ext}')
-            
             if post.rare_user.user_id == request.user.id:
-                serializer = PostSerializer(data=request.data, partial=True)
-                if serializer.is_valid():
-                    post.category = Category.objects.get(pk=request.data["categoryId"])
-                    post.title = serializer.validated_data["title"]
-                    post.image_url = serializer.validated_data["image_url"]
-                    post.content = serializer.validated_data["content"]
-                    post.save()
 
-                    serializer = PostSerializer(post, context={"request": request})
-                    return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                # This is handling the image
+                if request.data["image_url"]:
+                    format, imgstr = request.data["image_url"].split(';base64,')
+                    ext = format.split('/')[-1]
+                    data = ContentFile(base64.b64decode(imgstr), name=f'{pk}-{uuid.uuid4()}.{ext}')
+                    post.image_url = data
+
+                else: post.image_url = request.data.get("image_url")
+                
+                post.category = Category.objects.get(pk=request.data["categoryId"])
+                post.title = request.data.get("title")
+                
+                post.content = request.data.get("content")
+                post.save()
+
+                serializer = PostSerializer(post, context={"request": request})
+                return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
             return Response({"message": "You are not the author of this post."}, status=status.HTTP_403_FORBIDDEN)
         except Post.DoesNotExist as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
