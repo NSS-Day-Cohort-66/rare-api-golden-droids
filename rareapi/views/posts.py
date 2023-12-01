@@ -86,9 +86,9 @@ class PostView(viewsets.ViewSet):
             post = Post.objects.get(pk=pk)
 
             # This is handling the image
-            format, imgstr = request.data["image_url"].split(';base64,')
-            ext = format.split('/')[-1]
-            data = ContentFile(base64.b64decode(imgstr), name=f'{request.data[""]}')
+            # format, imgstr = request.data["image_url"].split(';base64,')
+            # ext = format.split('/')[-1]
+            # data = ContentFile(base64.b64decode(imgstr), name=f'{request.data[""]}')
             
             if post.rare_user.user_id == request.user.id:
                 serializer = PostSerializer(data=request.data, partial=True)
