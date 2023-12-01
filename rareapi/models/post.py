@@ -9,6 +9,6 @@ class Post(models.Model):
     # URLField or ImageField?
     image_url = models.ImageField(upload_to='rareimages', height_field=None, width_field=None, max_length=None, null=True)
     content = models.TextField()
-    approved = models.BooleanField(default=True)
+    approved = models.BooleanField(default=False)
     tags = models.ManyToManyField("Tag", through="PostTag", related_name="posts")
     post_reaction_set = models.ManyToManyField("Reaction", through="PostReaction", related_name="posts")

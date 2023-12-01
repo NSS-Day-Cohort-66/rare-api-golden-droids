@@ -6,7 +6,9 @@ from .categories import CategorySerializer
 from .tags import TagSerializer
 from rest_framework import status
 from django.utils import timezone
-import datetime
+import uuid
+import base64
+from django.core.files.base import ContentFile
 
 # ? serializer to show logged in user's posts
 
@@ -92,6 +94,12 @@ class PostView(viewsets.ViewSet):
         """
         try:
             post = Post.objects.get(pk=pk)
+
+            # This is handling the image
+            # format, imgstr = request.data["image_url"].split(';base64,')
+            # ext = format.split('/')[-1]
+            # data = ContentFile(base64.b64decode(imgstr), name=f'{pk}-{uuid.uuid4()}.{ext}')
+            
             if post.rare_user.user_id == request.user.id:
                 serializer = PostSerializer(data=request.data, partial=True)
                 if serializer.is_valid():
@@ -107,6 +115,35 @@ class PostView(viewsets.ViewSet):
             return Response({"message": "You are not the author of this post."}, status=status.HTTP_403_FORBIDDEN)
         except Post.DoesNotExist as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        
+    def create(self, request):
+        """Handle POST operations
+
+        Returns
+            Response -- JSON serialized post instance
+        """
+
+        rare_user = RareUser.objects.get(user=request.user.id)
+        category_id = Category.objects.get(pk=request.data['categoryId'])
+        title = request.data.get("title")
+        image_url = request.data.get("image_url")
+        content = request.data.get("content")
+
+        post = Post.objects.create(
+            rare_user = rare_user,
+            category = category_id,
+            title = title,
+            image_url = image_url,
+            content = content,
+        )
+
+        post.publication_date = post.publication_date.strftime("%m-%d-%Y")
+
+        try:
+            serializer = PostSerializer(post, context={"request": request} )
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception as ex:
+            return Response(ex, status=status.HTTP_400_BAD_REQUEST)
 
 
 

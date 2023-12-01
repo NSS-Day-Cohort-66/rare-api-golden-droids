@@ -108,3 +108,30 @@ class PostTest(APITestCase):
         for post in json_response:
             if post["rare_user"]["id"] != self.rare_user.id:
                 self.fail("Unexpected post for another user found in the response.")
+
+    def test_create_post(self):
+        """
+        Ensure we can create a new post
+        """
+
+        url = "/posts"
+
+        data = {
+            "categoryId": 1,
+            "title": "Test Post",
+            "image_url": None,
+            "content": "Testing creating a post"
+        }
+
+        response = self.client.post(url, data, format='json')
+
+        json_response = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # Assert that the properties on the created resource are correct
+        self.assertEqual(json_response["title"], "Test Post")
+        self.assertEqual(json_response["category"]["label"], "Lifestyle")
+        self.assertEqual(json_response["image_url"], None)
+        self.assertEqual(json_response["content"], "Testing creating a post")
+        self.assertFalse(json_response["approved"])
