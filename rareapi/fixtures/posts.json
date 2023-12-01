@@ -7,7 +7,7 @@
       "category": 1,
       "title": "Example Post 1",
       "publication_date": "2023-11-29",
-      "image_url": "https://example.com/image1.jpg",
+      "image_url": null,
       "content": "This is the content of Example Post 1.",
       "approved": true
     }
@@ -20,7 +20,7 @@
       "category": 2,
       "title": "Example Post 2",
       "publication_date": "2023-11-21",
-      "image_url": "https://example.com/image2.jpg",
+      "image_url": null,
       "content": "This is the content of Example Post 2.",
       "approved": true
     }
@@ -33,7 +33,7 @@
       "category": 1,
       "title": "Example Post 3",
       "publication_date": "2023-11-22",
-      "image_url": "https://example.com/image3.jpg",
+      "image_url": null,
       "content": "This is the content of Example Post 3.",
       "approved": true
     }
@@ -46,7 +46,7 @@
       "category": 3,
       "title": "Example Post 4",
       "publication_date": "2023-11-23",
-      "image_url": "https://example.com/image4.jpg",
+      "image_url": null,
       "content": "This is the content of Example Post 4.",
       "approved": true
     }
@@ -59,7 +59,7 @@
       "category": 2,
       "title": "Example Post 5",
       "publication_date": "2023-11-24",
-      "image_url": "https://example.com/image5.jpg",
+      "image_url": null,
       "content": "This is the content of Example Post 5.",
       "approved": true
     }

@@ -1,4 +1,4 @@
-from rareapi.models import Post, PostReaction, Tag
+from rareapi.models import Post, PostReaction, RareUser, Category, Tag
 from rest_framework import serializers, viewsets
 from rest_framework.response import Response
 from .comments import RareUserSerializer
@@ -6,6 +6,7 @@ from .categories import CategorySerializer
 from .tags import TagSerializer
 from rest_framework import status
 from django.utils import timezone
+import datetime
 
 # ? serializer to show logged in user's posts
 
@@ -23,7 +24,7 @@ class PostSerializer(serializers.ModelSerializer):
     post_tags = TagSerializer(many=True, read_only=True, source='tags')
     class Meta:
         model = Post
-        fields = ['id', 'title', 'rare_user', 'category', 'publication_date', 'content', 'post_reactions', 'approved', 'post_tags']
+        fields = ['id', 'title', 'rare_user', 'category', 'publication_date','image_url', 'content', 'post_reactions', 'approved', 'post_tags']
 
 class PostView(viewsets.ViewSet):
     def list(self, request):
@@ -49,13 +50,6 @@ class PostView(viewsets.ViewSet):
         Returns:
             Response -- JSON serialized object
         """
-        # try:
-        #     post = Post.objects.get(pk=pk)
-        #     post.publication_date = post.publication_date.strftime("%m-%d-%Y")
-        #     serializer = PostSerializer(post, context={"request": request})
-        #     return Response(serializer.data, status=status.HTTP_200_OK)
-        # except Post.DoesNotExist as ex:
-        #     return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
         
         try:
             post = Post.objects.get(pk=pk)
@@ -80,14 +74,39 @@ class PostView(viewsets.ViewSet):
         """
         try:
             post = Post.objects.get(pk=pk)
-            post.delete()
-            return Response(None, status=status.HTTP_204_NO_CONTENT)
-
+            if post.rare_user.user_id == request.user.id or request.user.is_staff:
+                post.delete()
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            return Response({"message": "You are not the author of this post."}, status=status.HTTP_403_FORBIDDEN)
         except Post.DoesNotExist as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
         
         except Exception as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    def update(self, request, pk=None):
+        """Handle PUT requests for a single post
+
+        Returns:
+            Response -- JSON serialized object
+        """
+        try:
+            post = Post.objects.get(pk=pk)
+            if post.rare_user.user_id == request.user.id:
+                serializer = PostSerializer(data=request.data, partial=True)
+                if serializer.is_valid():
+                    post.category = Category.objects.get(pk=request.data["categoryId"])
+                    post.title = serializer.validated_data["title"]
+                    post.image_url = serializer.validated_data["image_url"]
+                    post.content = serializer.validated_data["content"]
+                    post.save()
+
+                    serializer = PostSerializer(post, context={"request": request})
+                    return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "You are not the author of this post."}, status=status.HTTP_403_FORBIDDEN)
+        except Post.DoesNotExist as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
 
 

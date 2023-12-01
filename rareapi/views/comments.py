@@ -55,6 +55,26 @@ class CommentView(ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as ex:
             return Response(ex, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a singular Category
+
+        Returns:
+            Response -- 204, 403, 404, or 500 status
+        """
+        try:
+            comment = Comment.objects.get(pk=pk)
+            # checking to see if client user(which comes from users table) matches the author's user_id(which is on rareusers table)
+            if request.user.id == comment.author.user_id or request.user.is_staff:
+                comment.delete()
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response({"message": "You don't have admin rights!"}, status=status.HTTP_403_FORBIDDEN)          
+        except Comment.DoesNotExist as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Exception as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 
 
