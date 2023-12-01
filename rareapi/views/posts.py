@@ -5,7 +5,9 @@ from .comments import RareUserSerializer
 from .categories import CategorySerializer
 from rest_framework import status
 from django.utils import timezone
-import datetime
+import uuid
+import base64
+from django.core.files.base import ContentFile
 
 # ? serializer to show logged in user's posts
 
@@ -82,6 +84,10 @@ class PostView(viewsets.ViewSet):
         """
         try:
             post = Post.objects.get(pk=pk)
+            format, imgstr = request.data["image_url"].split(';base64,')
+            ext = format.split('/')[-1]
+            data = ContentFile(base64.b64decode(imgstr), name=f'{request.data[""]}')
+            
             if post.rare_user.user_id == request.user.id:
                 serializer = PostSerializer(data=request.data, partial=True)
                 if serializer.is_valid():
