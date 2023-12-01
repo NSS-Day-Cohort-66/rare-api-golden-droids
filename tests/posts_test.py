@@ -30,7 +30,7 @@ class PostTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Assert that the values are correct
-        keys = {'id', 'title', 'rare_user', 'category', 'publication_date', 'content', 'post_reactions', 'approved', 'image_url'}
+        keys = {'id', 'title', 'rare_user', 'category', 'publication_date','image_url', 'content', 'post_reactions', 'approved', 'post_tags'}
         self.assertEqual(json_response.keys(), keys)
 
     def test_get_all_posts(self):

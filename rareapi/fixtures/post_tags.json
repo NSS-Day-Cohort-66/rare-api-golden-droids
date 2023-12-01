@@ -6,5 +6,12 @@
             "post": 1,
             "tag": 2
         }
+    },{
+        "model": "rareapi.posttag",
+        "pk": 2,
+        "fields" : {
+            "post": 2,
+            "tag": 4
+        }
     }
 ]
