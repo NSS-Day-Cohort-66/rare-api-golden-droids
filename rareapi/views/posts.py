@@ -96,16 +96,16 @@ class PostView(viewsets.ViewSet):
             post = Post.objects.get(pk=pk)
 
             # This is handling the image
-            format, imgstr = request.data["image_url"].split(';base64,')
-            ext = format.split('/')[-1]
-            data = ContentFile(base64.b64decode(imgstr), name=f'{pk}-{uuid.uuid4()}.{ext}')
+            # format, imgstr = request.data["image_url"].split(';base64,')
+            # ext = format.split('/')[-1]
+            # data = ContentFile(base64.b64decode(imgstr), name=f'{pk}-{uuid.uuid4()}.{ext}')
             
             if post.rare_user.user_id == request.user.id:
                 serializer = PostSerializer(data=request.data, partial=True)
                 if serializer.is_valid():
                     post.category = Category.objects.get(pk=request.data["categoryId"])
                     post.title = serializer.validated_data["title"]
-                    post.image_url = data
+                    post.image_url = serializer.validated_data["image_url"]
                     post.content = serializer.validated_data["content"]
                     post.save()
 
