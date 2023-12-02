@@ -97,18 +97,18 @@ class PostView(viewsets.ViewSet):
 
             if post.rare_user.user_id == request.user.id:
 
-                # This is handling the image
+                # Handles the image file
+                # Checking if an image is present
                 if request.data["image_url"]:
                     format, imgstr = request.data["image_url"].split(';base64,')
                     ext = format.split('/')[-1]
                     data = ContentFile(base64.b64decode(imgstr), name=f'{pk}-{uuid.uuid4()}.{ext}')
                     post.image_url = data
-
+                # Otherwise takes image as null
                 else: post.image_url = request.data.get("image_url")
                 
                 post.category = Category.objects.get(pk=request.data["categoryId"])
                 post.title = request.data.get("title")
-                
                 post.content = request.data.get("content")
                 post.save()
 
@@ -124,20 +124,29 @@ class PostView(viewsets.ViewSet):
         Returns
             Response -- JSON serialized post instance
         """
+        # Get previous post pk
+        previous_post = Post.objects.latest('pk')
+        previous_pk = previous_post.pk
 
-        rare_user = RareUser.objects.get(user=request.user.id)
-        category_id = Category.objects.get(pk=request.data['categoryId'])
-        title = request.data.get("title")
-        image_url = request.data.get("image_url")
-        content = request.data.get("content")
+        # Create post instance
+        post = Post()
+        
+        # Handle the image file
+        if request.data["image_url"]:
+                    format, imgstr = request.data["image_url"].split(';base64,')
+                    ext = format.split('/')[-1]
+                    data = ContentFile(base64.b64decode(imgstr), name=f'{previous_pk + 1}-{uuid.uuid4()}.{ext}')
+                    post.image_url = data
 
-        post = Post.objects.create(
-            rare_user = rare_user,
-            category = category_id,
-            title = title,
-            image_url = image_url,
-            content = content,
-        )
+        else: post.image_url = request.data.get("image_url")
+        # Assign the rest of the property values from the request payload
+        post.rare_user = RareUser.objects.get(user=request.user.id)
+        post.category = Category.objects.get(pk=request.data["categoryId"])
+        post.title = request.data.get("title")
+        post.content = request.data.get("content")
+        # Save the post
+        post.save()
+
 
         post.publication_date = post.publication_date.strftime("%m-%d-%Y")
 
