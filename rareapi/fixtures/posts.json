@@ -7,7 +7,7 @@
       "category": 1,
       "title": "Example Post 1",
       "publication_date": "2023-11-29",
-      "image_url": null,
+      "image_url": "rareimages/1-d271adce-3865-45c1-aab8-1f0f5355bedc.jpeg",
       "content": "This is the content of Example Post 1.",
       "approved": true
     }
@@ -59,7 +59,7 @@
       "category": 2,
       "title": "Example Post 5",
       "publication_date": "2023-11-24",
-      "image_url": null,
+      "image_url": "rareimages/5-35246225-d860-46be-872e-25b1b3a18a37.jpeg",
       "content": "This is the content of Example Post 5.",
       "approved": true
     }

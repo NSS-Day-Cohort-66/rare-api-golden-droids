@@ -95,23 +95,25 @@ class PostView(viewsets.ViewSet):
         try:
             post = Post.objects.get(pk=pk)
 
-            # This is handling the image
-            # format, imgstr = request.data["image_url"].split(';base64,')
-            # ext = format.split('/')[-1]
-            # data = ContentFile(base64.b64decode(imgstr), name=f'{pk}-{uuid.uuid4()}.{ext}')
-            
             if post.rare_user.user_id == request.user.id:
-                serializer = PostSerializer(data=request.data, partial=True)
-                if serializer.is_valid():
-                    post.category = Category.objects.get(pk=request.data["categoryId"])
-                    post.title = serializer.validated_data["title"]
-                    post.image_url = serializer.validated_data["image_url"]
-                    post.content = serializer.validated_data["content"]
-                    post.save()
 
-                    serializer = PostSerializer(post, context={"request": request})
-                    return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                # Handles the image file
+                # Checking if an image is present
+                if request.data["image_url"]:
+                    format, imgstr = request.data["image_url"].split(';base64,')
+                    ext = format.split('/')[-1]
+                    data = ContentFile(base64.b64decode(imgstr), name=f'{pk}-{uuid.uuid4()}.{ext}')
+                    post.image_url = data
+                # Otherwise takes image as null
+                else: post.image_url = request.data.get("image_url")
+                
+                post.category = Category.objects.get(pk=request.data["categoryId"])
+                post.title = request.data.get("title")
+                post.content = request.data.get("content")
+                post.save()
+
+                serializer = PostSerializer(post, context={"request": request})
+                return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
             return Response({"message": "You are not the author of this post."}, status=status.HTTP_403_FORBIDDEN)
         except Post.DoesNotExist as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
@@ -122,20 +124,29 @@ class PostView(viewsets.ViewSet):
         Returns
             Response -- JSON serialized post instance
         """
+        # Get previous post pk
+        previous_post = Post.objects.latest('pk')
+        previous_pk = previous_post.pk
 
-        rare_user = RareUser.objects.get(user=request.user.id)
-        category_id = Category.objects.get(pk=request.data['categoryId'])
-        title = request.data.get("title")
-        image_url = request.data.get("image_url")
-        content = request.data.get("content")
+        # Create post instance
+        post = Post()
+        
+        # Handle the image file
+        if request.data["image_url"]:
+                    format, imgstr = request.data["image_url"].split(';base64,')
+                    ext = format.split('/')[-1]
+                    data = ContentFile(base64.b64decode(imgstr), name=f'{previous_pk + 1}-{uuid.uuid4()}.{ext}')
+                    post.image_url = data
 
-        post = Post.objects.create(
-            rare_user = rare_user,
-            category = category_id,
-            title = title,
-            image_url = image_url,
-            content = content,
-        )
+        else: post.image_url = request.data.get("image_url")
+        # Assign the rest of the property values from the request payload
+        post.rare_user = RareUser.objects.get(user=request.user.id)
+        post.category = Category.objects.get(pk=request.data["categoryId"])
+        post.title = request.data.get("title")
+        post.content = request.data.get("content")
+        # Save the post
+        post.save()
+
 
         post.publication_date = post.publication_date.strftime("%m-%d-%Y")
 
